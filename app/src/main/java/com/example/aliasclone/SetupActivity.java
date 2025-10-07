@@ -18,7 +18,11 @@ import java.util.HashMap;
 public class SetupActivity extends AppCompatActivity {
 
     private LinearLayout teamContainer;
+    private LinearLayout bottomContainer;
+
     private Button btnStartGame;
+
+    private int teamCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,75 +30,27 @@ public class SetupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setup);
 
         teamContainer = findViewById(R.id.teamContainer);
+        bottomContainer = findViewById(R.id.bottomContainer);
 
         addAddTeamButton();
-        //addGameSettingsSection();
-        ensureSettingsAtBottom();
+        addGameSettingsSection();
         addStartButton();
     }
 
     private void addAddTeamButton() {
         Button btnAddTeam = new Button(this);
         btnAddTeam.setText("+ Add team");
-
         btnAddTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 teamContainer.removeView(v);
                 addTeam();
                 addAddTeamButton();
-                addStartButton();
                 updateStartButtonState();
-                ensureSettingsAtBottom();
             }
         });
 
         teamContainer.addView(btnAddTeam);
-    }
-
-    /*private void addStartButton() {
-
-        for (int i = 0; i < teamContainer.getChildCount(); i++) {
-            View child = teamContainer.getChildAt(i);
-            if (child.getTag() != null && child.getTag().equals("startButton")) {
-                teamContainer.removeView(child);
-                break;
-            }
-        }
-
-        Button btnStartGame = new Button(this);
-        btnStartGame.setText("Start the game");
-        btnStartGame.setTag("startButton");
-
-        btnStartGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ArrayList<HashMap<String, Object>> allTeams = collectTeams();
-                Intent intent = new Intent(SetupActivity.this, GameActivity.class);
-                intent.putExtra("TEAMS", allTeams);
-                HashMap<String, Object> settings = collectSettings();
-                intent.putExtra("SETTINGS", settings);
-                startActivity(intent);
-            }
-        });
-
-        teamContainer.addView(btnStartGame);
-    }*/
-
-    private void ensureSettingsAtBottom() {
-        for (int i = 0; i < teamContainer.getChildCount(); i++) {
-            View child = teamContainer.getChildAt(i);
-            if (child.getTag() != null && child.getTag().equals("settingsSection")) {
-                teamContainer.removeView(child);
-                break;
-            }
-        }
-
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View settingsView = inflater.inflate(R.layout.item_game_settings, teamContainer, false);
-        settingsView.setTag("settingsSection");
-
-        teamContainer.addView(settingsView);
     }
 
     private void addStartButton() {
@@ -110,7 +66,6 @@ public class SetupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!isGameReady()) {
-                    // sigurnosna provjera (ne bi se smjelo dogoditi ako UI radi)
                     btnStartGame.setEnabled(false);
                     return;
                 }
@@ -124,9 +79,43 @@ public class SetupActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        teamContainer.addView(btnStartGame);
+        bottomContainer.addView(btnStartGame);
     }
+
+    private void addTeam() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View teamView = inflater.inflate(R.layout.item_team, teamContainer, false);
+
+        teamCount++;
+        String defaultTeamName = "Team " + teamCount;
+
+        EditText etTeamName = teamView.findViewById(R.id.etTeamName);
+        LinearLayout playerContainer = teamView.findViewById(R.id.playerContainer);
+        Button btnAddPlayer = teamView.findViewById(R.id.btnAddPlayer);
+        Button btnDeleteTeam = teamView.findViewById(R.id.btnDeleteTeam);
+
+        etTeamName.setText(defaultTeamName);
+        addPlayer(playerContainer, 1);
+        addPlayer(playerContainer, 2);
+
+        btnAddPlayer.setOnClickListener(v -> {
+            int playerCount = playerContainer.getChildCount();
+            addPlayer(playerContainer, playerCount + 1);
+            updateStartButtonState();
+        });
+
+        btnDeleteTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                teamContainer.removeView(teamView);
+                updateStartButtonState();
+            }
+        });
+
+        teamContainer.addView(teamView, teamContainer.getChildCount() - 1);
+        updateStartButtonState();
+    }
+
 
     private boolean isGameReady() {
         int validTeams = 0;
@@ -167,60 +156,24 @@ public class SetupActivity extends AppCompatActivity {
     }
 
 
-    private void addGameSettingsSection() {
-        for (int i = 0; i < teamContainer.getChildCount(); i++) {
-            View child = teamContainer.getChildAt(i);
-            if (child.getTag() != null && child.getTag().equals("settingsSection")) {
-                teamContainer.removeView(child);
-                break;
-            }
+        private void addGameSettingsSection() {
+            LayoutInflater inflater = LayoutInflater.from(this);
+            View settingsView = inflater.inflate(R.layout.item_game_settings, bottomContainer, false);
+            settingsView.setTag("settingsSection");
+
+            bottomContainer.addView(settingsView, 0);
         }
 
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View settingsView = inflater.inflate(R.layout.item_game_settings, teamContainer, false);
-        settingsView.setTag("settingsSection");
-
-        teamContainer.addView(settingsView);
-    }
 
 
-    private void addTeam() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View teamView = inflater.inflate(R.layout.item_team, teamContainer, false);
-
-        Button btnAddPlayer = teamView.findViewById(R.id.btnAddPlayer);
-        LinearLayout playerContainer = teamView.findViewById(R.id.playerContainer);
-        Button btnDeleteTeam = teamView.findViewById(R.id.btnDeleteTeam);
-
-        addPlayer(playerContainer);
-        addPlayer(playerContainer);
-
-        btnAddPlayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addPlayer(playerContainer);
-                updateStartButtonState();
-            }
-        });
-
-        btnDeleteTeam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                teamContainer.removeView(teamView);
-                updateStartButtonState();
-            }
-        });
-
-        teamContainer.addView(teamView);
-    }
-
-    private void addPlayer(LinearLayout playerContainer) {
+    private void addPlayer(LinearLayout playerContainer, int playerNumber) {
         LinearLayout playerLayout = new LinearLayout(this);
         playerLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        EditText et = new EditText(this);
-        et.setHint("Player name");
-        et.setLayoutParams(new LinearLayout.LayoutParams(0,
+        EditText etPlayerName = new EditText(this);
+        etPlayerName.setHint("Player name");
+        etPlayerName.setText("Player"+playerNumber);
+        etPlayerName.setLayoutParams(new LinearLayout.LayoutParams(0,
                 LinearLayout.LayoutParams.WRAP_CONTENT, 1));
 
         Button btnDeletePlayer = new Button(this);
@@ -234,7 +187,7 @@ public class SetupActivity extends AppCompatActivity {
             }
         });
 
-        playerLayout.addView(et);
+        playerLayout.addView(etPlayerName);
         playerLayout.addView(btnDeletePlayer);
 
         playerContainer.addView(playerLayout);
@@ -247,37 +200,49 @@ public class SetupActivity extends AppCompatActivity {
             View teamView = teamContainer.getChildAt(i);
 
             EditText etTeamName = teamView.findViewById(R.id.etTeamName);
+            if (etTeamName == null) continue;
+
             LinearLayout playerContainer = teamView.findViewById(R.id.playerContainer);
 
-            if (etTeamName != null && playerContainer != null) {
-                String teamName = etTeamName.getText().toString();
+            String teamName = etTeamName.getText().toString().trim();
+            if (teamName.isEmpty()) teamName = "Team " + (i + 1);
 
-                ArrayList<String> players = new ArrayList<>();
-                for (int j = 0; j < playerContainer.getChildCount(); j++) {
-                    View child = playerContainer.getChildAt(j);
-                    if (child instanceof EditText) {
-                        String playerName = ((EditText) child).getText().toString();
-                        if (!playerName.isEmpty()) {
-                            players.add(playerName);
+            ArrayList<String> players = new ArrayList<>();
+
+            for (int j = 0; j < playerContainer.getChildCount(); j++) {
+                View playerView = playerContainer.getChildAt(j);
+
+                if (playerView instanceof LinearLayout) {
+                    LinearLayout playerLayout = (LinearLayout) playerView;
+
+                    for (int k = 0; k < playerLayout.getChildCount(); k++) {
+                        View child = playerLayout.getChildAt(k);
+                        if (child instanceof EditText) {
+                            EditText etPlayer = (EditText) child;
+                            String name = etPlayer.getText().toString().trim();
+                            if (name.isEmpty()) name = "Player " + (j + 1);
+                            players.add(name);
+                            break;
                         }
                     }
                 }
-
-                HashMap<String, Object> teamData = new HashMap<>();
-                teamData.put("teamName", teamName);
-                teamData.put("players", players);
-                teams.add(teamData);
             }
+
+            HashMap<String, Object> team = new HashMap<>();
+            team.put("name", teamName);
+            team.put("players", players);
+            teams.add(team);
         }
         return teams;
     }
+
 
     private HashMap<String, Object> collectSettings() {
         HashMap<String, Object> settings = new HashMap<>();
 
         View settingsView = null;
-        for (int i = 0; i < teamContainer.getChildCount(); i++) {
-            View child = teamContainer.getChildAt(i);
+        for (int i = 0; i < bottomContainer.getChildCount(); i++) {
+            View child = bottomContainer.getChildAt(i);
             if (child.getTag() != null && child.getTag().equals("settingsSection")) {
                 settingsView = child;
                 break;
@@ -288,14 +253,40 @@ public class SetupActivity extends AppCompatActivity {
             EditText etRoundTime = settingsView.findViewById(R.id.etRoundTime);
             EditText etMaxScore = settingsView.findViewById(R.id.etMaxScore);
             CheckBox cbNoNegative = settingsView.findViewById(R.id.cbNoNegative);
-            CheckBox cbDoubleBonus = settingsView.findViewById(R.id.cbLastWord);
+            CheckBox cbLastWord = settingsView.findViewById(R.id.cbLastWord);
             CheckBox cbRandomTopic = settingsView.findViewById(R.id.cbRandomTopic);
 
-            settings.put("roundTime", etRoundTime.getText().toString());
-            settings.put("maxScore", etMaxScore.getText().toString());
-            settings.put("noNegative", cbNoNegative.isChecked());
-            settings.put("doubleBonus", cbDoubleBonus.isChecked());
-            settings.put("randomTopic", cbRandomTopic.isChecked());
+            String roundTimeStr = etRoundTime.getText().toString().trim();
+            String maxScoreStr = etMaxScore.getText().toString().trim();
+
+            int roundTime = 60;
+            int maxScore = 10;
+
+            try {
+                if (!roundTimeStr.isEmpty()) {
+                    roundTime = Integer.parseInt(roundTimeStr);
+                }
+            } catch (NumberFormatException e) {
+                roundTime = 60;
+            }
+
+            try {
+                if (!maxScoreStr.isEmpty()) {
+                    maxScore = Integer.parseInt(maxScoreStr);
+                }
+            } catch (NumberFormatException e) {
+                maxScore = 10;
+            }
+
+            boolean noNegative = cbNoNegative.isChecked();
+            boolean doubleBonus = cbLastWord.isChecked();
+            boolean randomTopic = cbRandomTopic.isChecked();
+
+            settings.put("roundTime", roundTime);
+            settings.put("maxScore", maxScore);
+            settings.put("noNegative", noNegative);
+            settings.put("doubleBonus", doubleBonus);
+            settings.put("randomTopic", randomTopic);
         }
 
         return settings;
