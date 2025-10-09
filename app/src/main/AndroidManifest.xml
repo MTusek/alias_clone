@@ -13,7 +13,16 @@
         android:theme="@style/Theme.AliasClone"
         tools:targetApi="34">
         <activity
-            android:name=".GameActivity"
+            android:name=".RoundResultsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TurnInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ScoreboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GameRoundActivity"
             android:exported="false" />
         <activity
             android:name=".SetupActivity"

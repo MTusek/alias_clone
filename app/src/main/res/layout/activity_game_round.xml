@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvWord"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="48dp"
+        android:layout_height="100dp"
+        android:layout_width="match_parent" />
+
+    <TextView
+        android:id="@+id/tvTimer"
+        android:textSize="20sp"
+        android:layout_marginBottom="24dp"
+        android:layout_height="300dp"
+        android:layout_width="match_parent"/>
+
+    <Button
+        android:id="@+id/btnNextWord"
+        android:text="Next Word"
+        android:layout_width="300dp"
+        android:layout_height="200dp"/>
+</LinearLayout>

@@ -10,8 +10,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.aliasclone.GameActivity;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -73,7 +71,7 @@ public class SetupActivity extends AppCompatActivity {
                 ArrayList<HashMap<String, Object>> allTeams = collectTeams();
                 HashMap<String, Object> settings = collectSettings();
 
-                Intent intent = new Intent(SetupActivity.this, GameActivity.class);
+                Intent intent = new Intent(SetupActivity.this, TurnInfoActivity.class);
                 intent.putExtra("TEAMS", allTeams);
                 intent.putExtra("SETTINGS", settings);
                 startActivity(intent);
@@ -163,8 +161,6 @@ public class SetupActivity extends AppCompatActivity {
 
             bottomContainer.addView(settingsView, 0);
         }
-
-
 
     private void addPlayer(LinearLayout playerContainer, int playerNumber) {
         LinearLayout playerLayout = new LinearLayout(this);
