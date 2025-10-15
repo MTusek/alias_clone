@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -73,7 +74,7 @@ public class SetupActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(SetupActivity.this, TurnInfoActivity.class);
                 intent.putExtra("TEAMS", allTeams);
-                intent.putExtra("SETTINGS", settings);
+                intent.putExtra("SETTINGS", (Serializable) settings);
                 startActivity(intent);
             }
         });
@@ -145,7 +146,7 @@ public class SetupActivity extends AppCompatActivity {
             }
         }
 
-        return validTeams >= 2; // treba barem 2 ispravna tima
+        return validTeams >= 2;
     }
     private void updateStartButtonState() {
         if (btnStartGame != null) {
