@@ -18,6 +18,10 @@ public class ScoreboardActivity extends AppCompatActivity {
     private ArrayList<HashMap<String, Object>> teams;
     private Button btnNextRound;
 
+    private int currentTeamIndex;
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -38,19 +42,22 @@ public class ScoreboardActivity extends AppCompatActivity {
         btnNextRound = findViewById(R.id.btnNextRound);
 
         teams = (ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra("TEAMS");
+        currentTeamIndex = getIntent().getIntExtra("CURRENT_TEAM", 0);
 
-        // Sort by "score" if it exists, otherwise default 0
+
         Collections.sort(teams, (a, b) -> {
             int scoreA = (int) a.getOrDefault("score", 0);
             int scoreB = (int) b.getOrDefault("score", 0);
-            return Integer.compare(scoreB, scoreA); // descending
+            return Integer.compare(scoreB, scoreA);
         });
 
         displayScores();
 
         btnNextRound.setOnClickListener(v -> {
             Intent intent = new Intent(this, TurnInfoActivity.class);
+            int nextTeamIndex = (currentTeamIndex + 1) % teams.size();
             intent.putExtra("TEAMS", teams);
+            intent.putExtra("CURRENT_TEAM", nextTeamIndex);
             startActivity(intent);
         });
     }

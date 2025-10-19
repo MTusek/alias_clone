@@ -21,8 +21,12 @@ public class GameRoundActivity extends AppCompatActivity {
     private String[] words = {"Apple", "Sunshine", "Guitar", "Mountain", "Tree", "Computer", "River", "Music", "Dog", "Sun", "Love", "Book", "Space"};
     private int index = 0;
     private int currentTeamIndex;
-
     private int roundDuration;
+
+    private ArrayList<String> usedWords = new ArrayList<>();
+    private ArrayList<Boolean> wordResults = new ArrayList<>();
+
+    private String currentWord;
 
     private int scoreThisRound = 0;
 
@@ -57,6 +61,8 @@ public class GameRoundActivity extends AppCompatActivity {
         btnCorrect.setOnClickListener(v -> {
             scoreThisRound++;
             tvScore.setText("Score: " + scoreThisRound);
+            wordResults.add(true);
+            usedWords.add(currentWord);
             showNextWord();
         });
 
@@ -64,6 +70,8 @@ public class GameRoundActivity extends AppCompatActivity {
             scoreThisRound--;
             if (scoreThisRound <= 0) scoreThisRound = 0;
             tvScore.setText("Score: " + scoreThisRound);
+            wordResults.add(false);
+            usedWords.add(currentWord);
             showNextWord();
         });
 
@@ -71,6 +79,7 @@ public class GameRoundActivity extends AppCompatActivity {
 
     private void showNextWord() {
         tvWord.setText(words[index % words.length]);
+        currentWord=tvWord.getText().toString();
         index++;
     }
 
@@ -84,15 +93,14 @@ public class GameRoundActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 tvTimer.setText("Time's up!");
-                //btnNextWord.setEnabled(false);
                 btnCorrect.setEnabled(false);
                 btnSkip.setEnabled(false);
 
-                //int pointsEarned = (int) (Math.random() * 5 + 1); // Temporary random points...
-
                 Intent intent = new Intent(GameRoundActivity.this, RoundResultsActivity.class);
+                intent.putStringArrayListExtra("USED_WORDS",usedWords);
+                intent.putExtra("WORD_RESULTS", (Serializable)wordResults);
                 intent.putExtra("TEAMS",(Serializable) teams);
-                intent.putExtra("CURRENT_TEAM", getIntent().getIntExtra("CURRENT_TEAM", 0));
+                intent.putExtra("CURRENT_TEAM", getIntent().getIntExtra("CURRENT_TEAM", currentTeamIndex));
                 intent.putExtra("POINTS_EARNED", scoreThisRound);
                 startActivity(intent);
                 finish();

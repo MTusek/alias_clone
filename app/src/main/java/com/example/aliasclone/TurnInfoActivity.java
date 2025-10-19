@@ -15,7 +15,7 @@ public class TurnInfoActivity extends AppCompatActivity {
     private TextView tvTurnInfo;
     private Button btnStartRound;
     private ArrayList<HashMap<String, Object>> teams;
-    private int currentTeamIndex = 0;
+    private int currentTeamIndex=0;
     private int currentPlayerIndex = 0;
 
     @Override
@@ -27,6 +27,12 @@ public class TurnInfoActivity extends AppCompatActivity {
         btnStartRound = findViewById(R.id.btnStartRound);
 
         teams = (ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra("TEAMS");
+
+       /* int lastTeamIndex = getIntent().getIntExtra("LAST_TEAM_INDEX", -1);
+        if (lastTeamIndex != -1) {
+            currentTeamIndex = (lastTeamIndex + 1) % teams.size();
+        }
+        */
 
         showCurrentTurn();
 
