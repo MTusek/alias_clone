@@ -19,7 +19,7 @@ public class GameRoundActivity extends AppCompatActivity {
 
     private CountDownTimer timer;
     private String[] words = {"Apple", "Sunshine", "Guitar", "Mountain", "Tree", "Computer", "River", "Music", "Dog", "Sun", "Love", "Book", "Space"};
-    private int index = 0;
+    private int index;
     private int currentTeamIndex;
     private int roundDuration;
 
@@ -30,7 +30,7 @@ public class GameRoundActivity extends AppCompatActivity {
 
     private int scoreThisRound = 0;
 
-    private ArrayList<HashMap<String, Object>> teams;
+    private ArrayList<Team> teams;
 
 
     @Override
@@ -44,10 +44,10 @@ public class GameRoundActivity extends AppCompatActivity {
         btnCorrect = findViewById(R.id.btnCorrect);
         btnSkip = findViewById(R.id.btnSkip);
 
-        teams = (ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra("TEAMS");
+        teams = (ArrayList<Team>) getIntent().getSerializableExtra("TEAMS");
         currentTeamIndex = getIntent().getIntExtra("CURRENT_TEAM", 0);
-        Serializable serializable = getIntent().getSerializableExtra("SETTINGS");
-        HashMap<String, Object> settings = null;
+        HashMap<String, Object> settings = (HashMap<String, Object>) getIntent().getSerializableExtra("SETTINGS");
+
 
         if (settings != null && settings.containsKey("roundTime")) {
             Object rt = settings.get("roundTime");
@@ -100,7 +100,7 @@ public class GameRoundActivity extends AppCompatActivity {
                 intent.putStringArrayListExtra("USED_WORDS",usedWords);
                 intent.putExtra("WORD_RESULTS", (Serializable)wordResults);
                 intent.putExtra("TEAMS",(Serializable) teams);
-                intent.putExtra("CURRENT_TEAM", getIntent().getIntExtra("CURRENT_TEAM", currentTeamIndex));
+                intent.putExtra("CURRENT_TEAM", currentTeamIndex);
                 intent.putExtra("POINTS_EARNED", scoreThisRound);
                 startActivity(intent);
                 finish();

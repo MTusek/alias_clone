@@ -21,7 +21,7 @@ public class SetupActivity extends AppCompatActivity {
 
     private Button btnStartGame;
 
-    private int teamCount = 0;
+    private int teamCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class SetupActivity extends AppCompatActivity {
                     return;
                 }
 
-                ArrayList<HashMap<String, Object>> allTeams = collectTeams();
+                ArrayList<Team> allTeams = collectTeams();
                 HashMap<String, Object> settings = collectSettings();
 
                 Intent intent = new Intent(SetupActivity.this, TurnInfoActivity.class);
@@ -190,8 +190,8 @@ public class SetupActivity extends AppCompatActivity {
         playerContainer.addView(playerLayout);
     }
 
-    private ArrayList<HashMap<String, Object>> collectTeams() {
-        ArrayList<HashMap<String, Object>> teams = new ArrayList<>();
+    private ArrayList<Team> collectTeams() {
+        ArrayList<Team> teams = new ArrayList<>();
 
         for (int i = 0; i < teamContainer.getChildCount(); i++) {
             View teamView = teamContainer.getChildAt(i);
@@ -225,9 +225,7 @@ public class SetupActivity extends AppCompatActivity {
                 }
             }
 
-            HashMap<String, Object> team = new HashMap<>();
-            team.put("name", teamName);
-            team.put("players", players);
+            Team team = new Team(teamName, players);
             teams.add(team);
         }
         return teams;

@@ -19,7 +19,7 @@ public class RoundResultsActivity extends AppCompatActivity {
     private Button btnContinue;
 
     private LinearLayout wordListContainer;
-    private ArrayList<HashMap<String, Object>> teams;
+    private ArrayList<Team> teams;
 
     private ArrayList<String> usedWords;
     private ArrayList<Boolean> wordResults;
@@ -37,7 +37,7 @@ public class RoundResultsActivity extends AppCompatActivity {
         wordListContainer = findViewById(R.id.wordListContainer);
         tvFinalScore = findViewById(R.id.tvFinalScore);
 
-        teams = (ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra("TEAMS");
+        teams = (ArrayList<Team>) getIntent().getSerializableExtra("TEAMS");
         currentTeamIndex = getIntent().getIntExtra("CURRENT_TEAM", 0);
         usedWords = getIntent().getStringArrayListExtra("USED_WORDS");
         wordResults = (ArrayList<Boolean>) getIntent().getSerializableExtra("WORD_RESULTS");
@@ -45,10 +45,11 @@ public class RoundResultsActivity extends AppCompatActivity {
         populateWordList();
         pointsEarned = calculateScore();
         updateTeamScore();
+        Team currentTeam = teams.get(currentTeamIndex);
+        currentTeam.advancePlayer();
 
-        currentTeamIndex++;
-        if(currentTeamIndex>teams.size())
-            currentTeamIndex=0;
+
+        currentTeamIndex = (currentTeamIndex + 1) % teams.size();
 
         btnContinue.setOnClickListener(v -> {
             Intent intent = new Intent(this, ScoreboardActivity.class);
@@ -60,9 +61,9 @@ public class RoundResultsActivity extends AppCompatActivity {
     }
 
     private void updateTeamScore() {
-        HashMap<String, Object> team = teams.get(currentTeamIndex);
-        int oldScore = (int) team.getOrDefault("score", 0);
-        team.put("score", oldScore+pointsEarned);
+        Team team = teams.get(currentTeamIndex);
+        int oldScore = (int) team.getScore();
+        team.addScore( oldScore+pointsEarned);
     }
 
     private int calculateScore(){
@@ -87,5 +88,14 @@ public class RoundResultsActivity extends AppCompatActivity {
             wordListContainer.addView(checkBox);
         }
         tvFinalScore.setText("Final score: " + calculateScore());
+    }
+
+    private void advancePlayerTurn(HashMap<String, Object> team) {
+        int currentPlayerIndex = (int) team.getOrDefault("currentPlayerIndex", 0);
+        ArrayList<String> players = (ArrayList<String>) team.get("players");
+
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+
+        team.put("currentPlayerIndex", currentPlayerIndex);
     }
 }

@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class ScoreboardActivity extends AppCompatActivity {
 
     private LinearLayout scoreContainer;
-    private ArrayList<HashMap<String, Object>> teams;
+    private ArrayList<Team> teams;
     private Button btnNextRound;
 
     private int currentTeamIndex;
@@ -27,8 +27,8 @@ public class ScoreboardActivity extends AppCompatActivity {
         super.onResume();
         if (teams != null) {
             Collections.sort(teams, (a, b) ->
-                    Integer.compare((int) b.getOrDefault("score", 0),
-                            (int) a.getOrDefault("score", 0)));
+                    Integer.compare((b.getScore()),
+                            (a.getScore())));
             displayScores();
         }
     }
@@ -41,13 +41,13 @@ public class ScoreboardActivity extends AppCompatActivity {
         scoreContainer = findViewById(R.id.scoreContainer);
         btnNextRound = findViewById(R.id.btnNextRound);
 
-        teams = (ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra("TEAMS");
+        teams = (ArrayList<Team>) getIntent().getSerializableExtra("TEAMS");
         currentTeamIndex = getIntent().getIntExtra("CURRENT_TEAM", 0);
 
 
         Collections.sort(teams, (a, b) -> {
-            int scoreA = (int) a.getOrDefault("score", 0);
-            int scoreB = (int) b.getOrDefault("score", 0);
+            int scoreA = (int) a.getScore();
+            int scoreB = (int) b.getScore();
             return Integer.compare(scoreB, scoreA);
         });
 
@@ -64,9 +64,9 @@ public class ScoreboardActivity extends AppCompatActivity {
 
     private void displayScores() {
         scoreContainer.removeAllViews();
-        for (HashMap<String, Object> team : teams) {
-            String name = (String) team.get("name");
-            int score = (int) team.getOrDefault("score", 0);
+        for (Team team : teams) {
+            String name = team.getName();
+            int score = (int) team.getScore();
 
             TextView tv = new TextView(this);
             tv.setText(name + ": " + score + " pts");

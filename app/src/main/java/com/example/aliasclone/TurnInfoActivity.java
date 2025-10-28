@@ -14,8 +14,8 @@ public class TurnInfoActivity extends AppCompatActivity {
 
     private TextView tvTurnInfo;
     private Button btnStartRound;
-    private ArrayList<HashMap<String, Object>> teams;
-    private int currentTeamIndex=0;
+    private ArrayList<Team> teams;
+    private int currentTeamIndex;
     private int currentPlayerIndex = 0;
 
     @Override
@@ -26,14 +26,8 @@ public class TurnInfoActivity extends AppCompatActivity {
         tvTurnInfo = findViewById(R.id.tvTurnInfo);
         btnStartRound = findViewById(R.id.btnStartRound);
 
-        teams = (ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra("TEAMS");
-
-       /* int lastTeamIndex = getIntent().getIntExtra("LAST_TEAM_INDEX", -1);
-        if (lastTeamIndex != -1) {
-            currentTeamIndex = (lastTeamIndex + 1) % teams.size();
-        }
-        */
-
+        teams = (ArrayList<Team>) getIntent().getSerializableExtra("TEAMS");
+        currentTeamIndex = getIntent().getIntExtra("CURRENT_TEAM", 0);
         showCurrentTurn();
 
         btnStartRound.setOnClickListener(v -> {
@@ -47,10 +41,11 @@ public class TurnInfoActivity extends AppCompatActivity {
 
     private void showCurrentTurn() {
         if (teams.isEmpty()) return;
-        HashMap<String, Object> team = teams.get(currentTeamIndex);
-        ArrayList<String> players = (ArrayList<String>) team.get("players");
+       Team team = teams.get(currentTeamIndex);
+        ArrayList<String> players = team.getPlayers();
+        int currentPlayerIndex = team.getCurrentPlayerIndex();
 
-        String teamName = (String) team.get("name");
+        String teamName =  team.getName();
         String playerName = players.get(currentPlayerIndex);
 
         tvTurnInfo.setText(teamName + " – " + playerName + " explains!");
