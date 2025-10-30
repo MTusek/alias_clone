@@ -20,8 +20,6 @@ public class ScoreboardActivity extends AppCompatActivity {
 
     private int currentTeamIndex;
 
-
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -43,7 +41,7 @@ public class ScoreboardActivity extends AppCompatActivity {
 
         teams = (ArrayList<Team>) getIntent().getSerializableExtra("TEAMS");
         currentTeamIndex = getIntent().getIntExtra("CURRENT_TEAM", 0);
-
+        Settings settings = (Settings) getIntent().getSerializableExtra("SETTINGS");
 
         Collections.sort(teams, (a, b) -> {
             int scoreA = (int) a.getScore();
@@ -58,6 +56,7 @@ public class ScoreboardActivity extends AppCompatActivity {
             int nextTeamIndex = (currentTeamIndex + 1) % teams.size();
             intent.putExtra("TEAMS", teams);
             intent.putExtra("CURRENT_TEAM", nextTeamIndex);
+            intent.putExtra("SETTINGS", settings);
             startActivity(intent);
         });
     }

@@ -26,6 +26,9 @@ public class RoundResultsActivity extends AppCompatActivity {
     private int currentTeamIndex;
     private int pointsEarned;
 
+    private Settings settings;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class RoundResultsActivity extends AppCompatActivity {
         currentTeamIndex = getIntent().getIntExtra("CURRENT_TEAM", 0);
         usedWords = getIntent().getStringArrayListExtra("USED_WORDS");
         wordResults = (ArrayList<Boolean>) getIntent().getSerializableExtra("WORD_RESULTS");
+        settings = (Settings) getIntent().getSerializableExtra("SETTINGS");
 
         populateWordList();
         pointsEarned = calculateScore();
@@ -48,13 +52,13 @@ public class RoundResultsActivity extends AppCompatActivity {
         Team currentTeam = teams.get(currentTeamIndex);
         currentTeam.advancePlayer();
 
-
         currentTeamIndex = (currentTeamIndex + 1) % teams.size();
 
         btnContinue.setOnClickListener(v -> {
             Intent intent = new Intent(this, ScoreboardActivity.class);
-            intent.putExtra("TEAMS", (Serializable) teams);
+            intent.putExtra("TEAMS", teams);
             intent.putExtra("CURRENT_TEAM", currentTeamIndex);
+            intent.putExtra("SETTINGS", settings);
             startActivity(intent);
             finish();
         });
@@ -62,16 +66,25 @@ public class RoundResultsActivity extends AppCompatActivity {
 
     private void updateTeamScore() {
         Team team = teams.get(currentTeamIndex);
-        int oldScore = (int) team.getScore();
+        int oldScore = team.getScore();
         team.addScore( oldScore+pointsEarned);
     }
 
-    private int calculateScore(){
+    private int calculateScore() {
         int score = 0;
-        for (int i = 0; i < wordListContainer.getChildCount(); i++) {
-            CheckBox cb = (CheckBox) wordListContainer.getChildAt(i);
-            if (cb.isChecked()) score++;
+        if (settings.isNoNegative()) {
+            for (int i = 0; i < wordListContainer.getChildCount(); i++) {
+                CheckBox cb = (CheckBox) wordListContainer.getChildAt(i);
+                if (cb.isChecked()) score++;
+            }
+        } else {
+            for (int i = 0; i < wordListContainer.getChildCount(); i++) {
+                CheckBox cb = (CheckBox) wordListContainer.getChildAt(i);
+                if (cb.isChecked()) score++;
+                if (!cb.isChecked()) score--;
+            }
         }
+        if(score<=0) score=0;
         return score;
     }
 
@@ -88,14 +101,5 @@ public class RoundResultsActivity extends AppCompatActivity {
             wordListContainer.addView(checkBox);
         }
         tvFinalScore.setText("Final score: " + calculateScore());
-    }
-
-    private void advancePlayerTurn(HashMap<String, Object> team) {
-        int currentPlayerIndex = (int) team.getOrDefault("currentPlayerIndex", 0);
-        ArrayList<String> players = (ArrayList<String>) team.get("players");
-
-        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-
-        team.put("currentPlayerIndex", currentPlayerIndex);
     }
 }

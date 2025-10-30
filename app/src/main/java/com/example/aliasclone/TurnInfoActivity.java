@@ -30,11 +30,14 @@ public class TurnInfoActivity extends AppCompatActivity {
         currentTeamIndex = getIntent().getIntExtra("CURRENT_TEAM", 0);
         showCurrentTurn();
 
+        Settings settings = (Settings) getIntent().getSerializableExtra("SETTINGS");
+
         btnStartRound.setOnClickListener(v -> {
             Intent intent = new Intent(this, GameRoundActivity.class);
             intent.putExtra("TEAMS", teams);
             intent.putExtra("CURRENT_TEAM", currentTeamIndex);
             intent.putExtra("CURRENT_PLAYER", currentPlayerIndex);
+            intent.putExtra("SETTINGS", settings);
             startActivity(intent);
         });
     }

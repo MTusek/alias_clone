@@ -70,11 +70,11 @@ public class SetupActivity extends AppCompatActivity {
                 }
 
                 ArrayList<Team> allTeams = collectTeams();
-                HashMap<String, Object> settings = collectSettings();
+                Settings settings = collectSettings();
 
                 Intent intent = new Intent(SetupActivity.this, TurnInfoActivity.class);
                 intent.putExtra("TEAMS", allTeams);
-                intent.putExtra("SETTINGS", (Serializable) settings);
+                intent.putExtra("SETTINGS",  settings);
                 startActivity(intent);
             }
         });
@@ -232,9 +232,7 @@ public class SetupActivity extends AppCompatActivity {
     }
 
 
-    private HashMap<String, Object> collectSettings() {
-        HashMap<String, Object> settings = new HashMap<>();
-
+    private Settings collectSettings() {
         View settingsView = null;
         for (int i = 0; i < bottomContainer.getChildCount(); i++) {
             View child = bottomContainer.getChildAt(i);
@@ -244,47 +242,35 @@ public class SetupActivity extends AppCompatActivity {
             }
         }
 
-        if (settingsView != null) {
-            EditText etRoundTime = settingsView.findViewById(R.id.etRoundTime);
-            EditText etMaxScore = settingsView.findViewById(R.id.etMaxScore);
-            CheckBox cbNoNegative = settingsView.findViewById(R.id.cbNoNegative);
-            CheckBox cbLastWord = settingsView.findViewById(R.id.cbLastWord);
-            CheckBox cbRandomTopic = settingsView.findViewById(R.id.cbRandomTopic);
-
-            String roundTimeStr = etRoundTime.getText().toString().trim();
-            String maxScoreStr = etMaxScore.getText().toString().trim();
-
-            int roundTime = 60;
-            int maxScore = 10;
-
-            try {
-                if (!roundTimeStr.isEmpty()) {
-                    roundTime = Integer.parseInt(roundTimeStr);
-                }
-            } catch (NumberFormatException e) {
-                roundTime = 60;
-            }
-
-            try {
-                if (!maxScoreStr.isEmpty()) {
-                    maxScore = Integer.parseInt(maxScoreStr);
-                }
-            } catch (NumberFormatException e) {
-                maxScore = 10;
-            }
-
-            boolean noNegative = cbNoNegative.isChecked();
-            boolean doubleBonus = cbLastWord.isChecked();
-            boolean randomTopic = cbRandomTopic.isChecked();
-
-            settings.put("roundTime", roundTime);
-            settings.put("maxScore", maxScore);
-            settings.put("noNegative", noNegative);
-            settings.put("doubleBonus", doubleBonus);
-            settings.put("randomTopic", randomTopic);
+        if (settingsView == null) {
+            return new Settings();
         }
 
-        return settings;
+        EditText etRoundTime = settingsView.findViewById(R.id.etRoundTime);
+        EditText etMaxScore = settingsView.findViewById(R.id.etMaxScore);
+        CheckBox cbNoNegative = settingsView.findViewById(R.id.cbNoNegative);
+        CheckBox cbLastWord = settingsView.findViewById(R.id.cbLastWord);
+        CheckBox cbRandomTopic = settingsView.findViewById(R.id.cbRandomTopic);
+
+        int roundTime = 60;
+        int maxScore = 10;
+
+        try {
+            String roundTimeStr = etRoundTime.getText().toString().trim();
+            if (!roundTimeStr.isEmpty()) roundTime = Integer.parseInt(roundTimeStr);
+        } catch (NumberFormatException ignored) {}
+
+        try {
+            String maxScoreStr = etMaxScore.getText().toString().trim();
+            if (!maxScoreStr.isEmpty()) maxScore = Integer.parseInt(maxScoreStr);
+        } catch (NumberFormatException ignored) {}
+
+        boolean noNegative = cbNoNegative.isChecked();
+        boolean lastWord = cbLastWord.isChecked();
+        boolean randomTopic = cbRandomTopic.isChecked();
+
+        return new Settings(roundTime, maxScore, noNegative, lastWord, randomTopic);
     }
+
 
 }
