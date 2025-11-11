@@ -27,7 +27,7 @@ public class Settings implements Serializable {
     public int getRoundTime() { return roundTime; }
     public int getMaxScore() { return maxScore; }
     public boolean isNoNegative() { return noNegative; }
-    public boolean isLastWord() { return lastWord; }
+    public boolean isLastWordKept() { return lastWord; }
     public boolean isRandomTopic() { return randomTopic; }
 
     public void setRoundTime(int roundTime) { this.roundTime = roundTime; }

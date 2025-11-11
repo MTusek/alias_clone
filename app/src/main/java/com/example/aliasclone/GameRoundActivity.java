@@ -24,6 +24,10 @@ public class GameRoundActivity extends AppCompatActivity {
 
     private ImageView timerGif;
 
+    private boolean keepLastWord;
+
+    private AnimatedImageDrawable timerAnimation;
+
     private CountDownTimer timer;
     private String[] words = {"Apple", "Sunshine", "Guitar", "Mountain", "Tree", "Computer", "River", "Music", "Dog", "Sun", "Love", "Book", "Space"};
     private int index;
@@ -46,9 +50,8 @@ public class GameRoundActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             timerGif = findViewById(R.id.imageView);
-            AnimatedImageDrawable drawable = (AnimatedImageDrawable) getResources().getDrawable(R.drawable.game_timer, null);
-            timerGif.setImageDrawable(drawable);
-            drawable.start();
+            timerAnimation =  (AnimatedImageDrawable) getResources().getDrawable(R.drawable.game_timer, null);
+            timerGif.setImageDrawable(timerAnimation);
         }
 
         tvWord = findViewById(R.id.tvWord);
@@ -60,6 +63,8 @@ public class GameRoundActivity extends AppCompatActivity {
         if (settings == null) {
             settings = new Settings();
         }
+        keepLastWord = settings != null && settings.isLastWordKept();
+
 
         int roundDuration = settings.getRoundTime();
 
@@ -68,10 +73,9 @@ public class GameRoundActivity extends AppCompatActivity {
 
 
         showNextWord();
-        startRoundTimer(roundDuration);
+        startRoundTimer(roundDuration+1);
 
         btnCorrect.setOnClickListener(v -> {
-            scoreThisRound++;
             wordResults.add(true);
             usedWords.add(currentWord);
             showNextWord();
@@ -93,6 +97,8 @@ public class GameRoundActivity extends AppCompatActivity {
     }
 
     private void startRoundTimer(int seconds) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && timerAnimation != null)
+            timerAnimation.start();
         timer = new CountDownTimer(seconds * 1000L, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -101,9 +107,23 @@ public class GameRoundActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && timerAnimation != null)
+                    timerAnimation.stop();
+
                 tvTimer.setText("Time's up!");
                 btnCorrect.setEnabled(false);
                 btnSkip.setEnabled(false);
+
+                if (keepLastWord && !usedWords.contains(currentWord)) {
+                    usedWords.add(currentWord);
+                    wordResults.add(false);
+                }
+
+                if(usedWords.isEmpty()){
+                    usedWords.add(currentWord);
+                    wordResults.add(false);
+                }
+
 
                 Intent intent = new Intent(GameRoundActivity.this, RoundResultsActivity.class);
                 intent.putStringArrayListExtra("USED_WORDS",usedWords);

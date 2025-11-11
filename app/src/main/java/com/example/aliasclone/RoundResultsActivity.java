@@ -52,7 +52,7 @@ public class RoundResultsActivity extends AppCompatActivity {
         Team currentTeam = teams.get(currentTeamIndex);
         currentTeam.advancePlayer();
 
-        currentTeamIndex = (currentTeamIndex + 1) % teams.size();
+        currentTeamIndex = (currentTeamIndex) % teams.size();
 
         btnContinue.setOnClickListener(v -> {
             Intent intent = new Intent(this, ScoreboardActivity.class);
@@ -66,8 +66,7 @@ public class RoundResultsActivity extends AppCompatActivity {
 
     private void updateTeamScore() {
         Team team = teams.get(currentTeamIndex);
-        int oldScore = team.getScore();
-        team.addScore( oldScore+pointsEarned);
+        team.addScore( pointsEarned);
     }
 
     private int calculateScore() {

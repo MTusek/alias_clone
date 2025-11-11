@@ -16,6 +16,7 @@ public class ScoreboardActivity extends AppCompatActivity {
 
     private LinearLayout scoreContainer;
     private ArrayList<Team> teams;
+    private ArrayList<Team> displayTeams;
     private Button btnNextRound;
 
     private int currentTeamIndex;
@@ -23,8 +24,8 @@ public class ScoreboardActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (teams != null) {
-            Collections.sort(teams, (a, b) ->
+        if (displayTeams != null) {
+            Collections.sort(displayTeams, (a, b) ->
                     Integer.compare((b.getScore()),
                             (a.getScore())));
             displayScores();
@@ -40,12 +41,13 @@ public class ScoreboardActivity extends AppCompatActivity {
         btnNextRound = findViewById(R.id.btnNextRound);
 
         teams = (ArrayList<Team>) getIntent().getSerializableExtra("TEAMS");
+        displayTeams = new ArrayList<>(teams);
         currentTeamIndex = getIntent().getIntExtra("CURRENT_TEAM", 0);
         Settings settings = (Settings) getIntent().getSerializableExtra("SETTINGS");
 
-        Collections.sort(teams, (a, b) -> {
-            int scoreA = (int) a.getScore();
-            int scoreB = (int) b.getScore();
+        Collections.sort(displayTeams, (a, b) -> {
+            int scoreA = a.getScore();
+            int scoreB = b.getScore();
             return Integer.compare(scoreB, scoreA);
         });
 
@@ -53,7 +55,7 @@ public class ScoreboardActivity extends AppCompatActivity {
 
         btnNextRound.setOnClickListener(v -> {
             Intent intent = new Intent(this, TurnInfoActivity.class);
-            int nextTeamIndex = (currentTeamIndex + 1) % teams.size();
+            int nextTeamIndex = (currentTeamIndex+1) % teams.size();
             intent.putExtra("TEAMS", teams);
             intent.putExtra("CURRENT_TEAM", nextTeamIndex);
             intent.putExtra("SETTINGS", settings);
@@ -63,9 +65,9 @@ public class ScoreboardActivity extends AppCompatActivity {
 
     private void displayScores() {
         scoreContainer.removeAllViews();
-        for (Team team : teams) {
+        for (Team team : displayTeams) {
             String name = team.getName();
-            int score = (int) team.getScore();
+            int score = team.getScore();
 
             TextView tv = new TextView(this);
             tv.setText(name + ": " + score + " pts");
