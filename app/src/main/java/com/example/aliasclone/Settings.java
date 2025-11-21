@@ -8,13 +8,25 @@ public class Settings implements Serializable {
     private boolean noNegative;
     private boolean lastWord;
     private boolean randomTopic;
+    private String wordPack;
 
-    public Settings(int roundTime, int maxScore, boolean noNegative, boolean lastWord, boolean randomTopic) {
+    public String getWordPack() {
+        return wordPack;
+    }
+
+    public void setWordPack(String wordPack) {
+        this.wordPack = wordPack;
+    }
+
+
+
+    public Settings(int roundTime, int maxScore, boolean noNegative, boolean lastWord, boolean randomTopic, String wordPack) {
         this.roundTime = roundTime;
         this.maxScore = maxScore;
         this.noNegative = noNegative;
         this.lastWord = lastWord;
         this.randomTopic = randomTopic;
+        this.wordPack = wordPack;
     }
     public Settings() {
         this.roundTime = 60;

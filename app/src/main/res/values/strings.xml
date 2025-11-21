@@ -1,3 +1,14 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string name="app_name">AliasClone</string>
+
+    <string-array name="word_packs">
+        <item>Default</item>
+        <item>Animals</item>
+        <item>Movies</item>
+        <item>Sports</item>
+        <item>Technology</item>
+    </string-array>
+
+    <string name="select_category">Select a word pack</string>
+
 </resources>

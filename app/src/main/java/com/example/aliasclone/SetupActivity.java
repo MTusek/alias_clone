@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.Serializable;
@@ -158,6 +160,21 @@ public class SetupActivity extends AppCompatActivity {
         private void addGameSettingsSection() {
             LayoutInflater inflater = LayoutInflater.from(this);
             View settingsView = inflater.inflate(R.layout.item_game_settings, bottomContainer, false);
+
+            CheckBox cbRandomTopic = settingsView.findViewById(R.id.cbRandomTopic);
+            Spinner spCategory = settingsView.findViewById(R.id.spCategory);
+
+
+            spCategory.setVisibility(View.GONE);
+
+
+            cbRandomTopic.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    spCategory.setVisibility(View.VISIBLE);
+                } else {
+                    spCategory.setVisibility(View.GONE);
+                }
+            });
             settingsView.setTag("settingsSection");
 
             bottomContainer.addView(settingsView, 0);
@@ -251,6 +268,9 @@ public class SetupActivity extends AppCompatActivity {
         CheckBox cbNoNegative = settingsView.findViewById(R.id.cbNoNegative);
         CheckBox cbLastWord = settingsView.findViewById(R.id.cbLastWord);
         CheckBox cbRandomTopic = settingsView.findViewById(R.id.cbRandomTopic);
+        Spinner spCategory = settingsView.findViewById(R.id.spCategory);
+        String selectedCategory = spCategory.getSelectedItem().toString();
+
 
         int roundTime = 60;
         int maxScore = 10;
@@ -267,10 +287,9 @@ public class SetupActivity extends AppCompatActivity {
 
         boolean noNegative = cbNoNegative.isChecked();
         boolean lastWord = cbLastWord.isChecked();
-        boolean randomTopic = cbRandomTopic.isChecked();
+        boolean customWordpack = cbRandomTopic.isChecked();
+        selectedCategory = spCategory.getSelectedItem().toString();
 
-        return new Settings(roundTime, maxScore, noNegative, lastWord, randomTopic);
+        return new Settings(roundTime, maxScore, noNegative, lastWord, customWordpack, selectedCategory);
     }
-
-
 }

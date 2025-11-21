@@ -48,13 +48,16 @@ public class RoundResultsActivity extends AppCompatActivity {
 
         populateWordList();
         pointsEarned = calculateScore();
-        updateTeamScore();
         Team currentTeam = teams.get(currentTeamIndex);
         currentTeam.advancePlayer();
 
         currentTeamIndex = (currentTeamIndex) % teams.size();
 
         btnContinue.setOnClickListener(v -> {
+
+            pointsEarned = calculateScore();
+            updateTeamScore();
+
             Intent intent = new Intent(this, ScoreboardActivity.class);
             intent.putExtra("TEAMS", teams);
             intent.putExtra("CURRENT_TEAM", currentTeamIndex);
@@ -66,7 +69,7 @@ public class RoundResultsActivity extends AppCompatActivity {
 
     private void updateTeamScore() {
         Team team = teams.get(currentTeamIndex);
-        team.addScore( pointsEarned);
+        team.addScore(pointsEarned);
     }
 
     private int calculateScore() {

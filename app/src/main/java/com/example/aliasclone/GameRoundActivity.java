@@ -29,7 +29,7 @@ public class GameRoundActivity extends AppCompatActivity {
     private AnimatedImageDrawable timerAnimation;
 
     private CountDownTimer timer;
-    private String[] words = {"Apple", "Sunshine", "Guitar", "Mountain", "Tree", "Computer", "River", "Music", "Dog", "Sun", "Love", "Book", "Space"};
+    private String[] words;
     private int index;
     private int currentTeamIndex;
 
@@ -63,6 +63,33 @@ public class GameRoundActivity extends AppCompatActivity {
         if (settings == null) {
             settings = new Settings();
         }
+
+        Settings settings = (Settings) getIntent().getSerializableExtra("SETTINGS");
+
+        if (settings != null) {
+            switch (settings.getWordPack()) {
+                case "Animals":
+                    words = new String[]{"Dog", "Cat", "Elephant", "Tiger", "Horse"};
+                    break;
+                case "Movies":
+                    words = new String[]{"Titanic", "Inception", "Avatar", "Joker", "Frozen", "Avengers"};
+                    break;
+                case "Sports":
+                    words = new String[]{"Football", "Basketball", "Tennis", "Hockey", "Running", "Swimming"};
+                    break;
+                case "Technology":
+                    words = new String[]{"Computer", "Robot", "AI", "Smartphone", "Code", "Internet"};
+                    break;
+                default:
+                    words = new String[]{"Apple", "Sunshine", "Guitar", "Mountain", "Tree", "Book", "Dog", "Cat", "Elephant", "Tiger", "Horse"};
+            }
+        } else {
+            words = new String[]{"Apple", "Sunshine", "Guitar", "Mountain", "Tree", "Book", "Dog", "Cat", "Elephant", "Tiger", "Horse"};
+        }
+
+
+
+
         keepLastWord = settings != null && settings.isLastWordKept();
 
 
