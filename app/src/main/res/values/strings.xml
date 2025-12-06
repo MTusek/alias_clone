@@ -1,5 +1,5 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <string name="app_name">AliasClone</string>
+    <string name="app_name" translatable="false">AliasClone</string>
 
     <string-array name="word_packs">
         <item>Default</item>
@@ -10,5 +10,85 @@
     </string-array>
 
     <string name="select_category">Select a word pack</string>
+    <string name="language">language</string>
+
+    <string name="start_game">Start!</string>
+    <string name="word_packs">Word packs</string>
+    <string name="rules">Rules</string>
+    <string name="how_to_play">In Alias, players form teams of two or more people. The goal of the game is to explain a word to another player using synonyms, antonyms, descriptions and various clues. The team that reaches the finish line first wins the game!"</string>
+    <string name="start_game_match">START THE MATCH</string>
+    <string name="add_team_button">+ADD TEAM</string>
+    <string name="add_player_button">+Add player</string>
+    <string name="team_translation">Team</string>
+    <string name="player_translation">Player</string>
+    <string name="enter_player_name">Enter player's name</string>
+    <string name="enter_team_name">Enter teams's name</string>
+    <string name="round_time_setting">Round Time (seconds)</string>
+    <string name="points_threshold_setting">Points threshold</string>
+    <string name="free_skips_setting">Free skips</string>
+    <string name="keep_last_word_setting">Keep last word</string>
+    <string name="custom_wordpack_setting">Custom wordpack (if applicable)</string>
+    <string name="additional_settings_translation">⚙️ Additional settings</string>
+    <string name="time_up">Time's up!</string>
+    <string name="explains_translation">explains!</string>
+    <string name="start_round">Start round</string>"
+    <string name="button_correct">Correct</string>
+    <string name="button_skip">Skip</string>
+    <string name="final_score_translation">Final score: </string>
+    <string name="continue_button">Continue</string>
+    <string name="scoreboard_translation">Scoreboard</string>
+    <string name="button_next_round">Next round</string>
+    <string name="points_translation">points</string>
+
+
+    <string-array name="pack_animals">
+        <item>Dog</item>
+        <item>Cat</item>
+        <item>Elephant</item>
+        <item>Tiger</item>
+        <item>Horse</item>
+    </string-array>
+
+    <string-array name="pack_movies">
+        <item>Titanic</item>
+        <item>Inception</item>
+        <item>Avatar</item>
+        <item>Joker</item>
+        <item>Frozen</item>
+        <item>Avengers</item>
+    </string-array>
+
+    <string-array name="pack_sports">
+        <item>Football</item>
+        <item>Basketball</item>
+        <item>Tennis</item>
+        <item>Hockey</item>
+        <item>Running</item>
+        <item>Swimming</item>
+    </string-array>
+
+    <string-array name="pack_technology">
+        <item>Computer</item>
+        <item>Robot</item>
+        <item>AI</item>
+        <item>Smartphone</item>
+        <item>Code</item>
+        <item>Internet</item>
+    </string-array>
+
+    <string-array name="pack_default">
+        <item>Apple</item>
+        <item>Sunshine</item>
+        <item>Guitar</item>
+        <item>Mountain</item>
+        <item>Tree</item>
+        <item>Book</item>
+        <item>Dog</item>
+        <item>Cat</item>
+        <item>Elephant</item>
+        <item>Tiger</item>
+        <item>Horse</item>
+    </string-array>
+
 
 </resources>

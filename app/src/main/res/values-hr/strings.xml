@@ -1,0 +1,95 @@
+<resources>
+    <string name="app_name" translatable="false">AliasClone</string>
+
+    <string-array name="word_packs">
+        <item>Zadano</item>
+        <item>Životinje</item>
+        <item>Filmovi</item>
+        <item>Sport</item>
+        <item>Tehnologija</item>
+    </string-array>
+
+    <string name="select_category">Odaberite paket riječi</string>
+    <string name="language">jezik</string>
+
+    <string name="start_game">Počni!</string>
+    <string name="word_packs">Paketi riječi</string>
+    <string name="rules">Pravila</string>
+    <string name="how_to_play">
+        U Aliasu igrači formiraju timove od dvije ili više osoba.
+        Cilj igre je objasniti riječ drugom igraču koristeći sinonime, suprotnosti,
+        opise i razne tragove. Tim koji prvi stigne do cilja pobjeđuje!
+    </string>
+    <string name="start_game_match">POČNI MEČ</string>
+    <string name="add_team_button">+DODAJ TIM</string>
+    <string name="add_player_button">+Dodaj igrača</string>
+    <string name="team_translation">Tim</string>
+    <string name="player_translation">Igrač</string>
+    <string name="enter_player_name">Unesite ime igrača</string>
+    <string name="enter_team_name">Unesite ime tima</string>
+    <string name="round_time_setting">Trajanje runde (sekunde)</string>
+    <string name="points_threshold_setting">Prag bodova</string>
+    <string name="free_skips_setting">Besplatna preskakanja</string>
+    <string name="keep_last_word_setting">Zadrži zadnju riječ</string>
+    <string name="custom_wordpack_setting">Prilagođeni paket riječi (ako postoji)</string>
+    <string name="additional_settings_translation">⚙️ Dodatne postavke</string>
+    <string name="time_up">Vrijeme je isteklo!</string>
+    <string name="explains_translation">objašnjava!</string>
+    <string name="start_round">Započni rundu</string>
+    <string name="button_correct">Točno</string>
+    <string name="button_skip">Preskoči</string>
+    <string name="final_score_translation">Konačni rezultat: </string>
+    <string name="continue_button">Nastavi</string>
+    <string name="scoreboard_translation">Tablica rezultata</string>
+    <string name="button_next_round">Sljedeća runda</string>
+    <string name="points_translation">bodova</string>
+
+    <string-array name="pack_animals">
+        <item>Pas</item>
+        <item>Mačka</item>
+        <item>Slon</item>
+        <item>Tigar</item>
+        <item>Konj</item>
+    </string-array>
+
+    <string-array name="pack_movies">
+        <item>Titanic</item>
+        <item>Inception</item>
+        <item>Avatar</item>
+        <item>Joker</item>
+        <item>Zaleđeno kraljevstvo</item>
+        <item>Osvetnici</item>
+    </string-array>
+
+    <string-array name="pack_sports">
+        <item>Nogomet</item>
+        <item>Košarka</item>
+        <item>Tenis</item>
+        <item>Hokej</item>
+        <item>Trčanje</item>
+        <item>Plivanje</item>
+    </string-array>
+
+    <string-array name="pack_technology">
+        <item>Računalo</item>
+        <item>Robot</item>
+        <item>AI</item>
+        <item>Pametni telefon</item>
+        <item>Kod</item>
+        <item>Internet</item>
+    </string-array>
+
+    <string-array name="pack_default">
+        <item>Jabuka</item>
+        <item>Sunčeva svjetlost</item>
+        <item>Gitara</item>
+        <item>Planina</item>
+        <item>Stablo</item>
+        <item>Knjiga</item>
+        <item>Pas</item>
+        <item>Mačka</item>
+        <item>Slon</item>
+        <item>Tigar</item>
+        <item>Konj</item>
+    </string-array>
+</resources>

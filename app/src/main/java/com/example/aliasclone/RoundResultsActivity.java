@@ -98,10 +98,10 @@ public class RoundResultsActivity extends AppCompatActivity {
             checkBox.setText(usedWords.get(i));
             checkBox.setChecked(wordResults.get(i)); // prefill from gameplay
             checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                tvFinalScore.setText("Final score: " + calculateScore());
+                tvFinalScore.setText(R.string.final_score_translation+"" + calculateScore());
             });
             wordListContainer.addView(checkBox);
         }
-        tvFinalScore.setText("Final score: " + calculateScore());
+        tvFinalScore.setText(R.string.final_score_translation+"" + calculateScore());
     }
 }

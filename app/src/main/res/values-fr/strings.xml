@@ -1,0 +1,95 @@
+<resources>
+    <string name="app_name" translatable="false">AliasClone</string>
+
+    <string-array name="word_packs">
+        <item>Par défaut</item>
+        <item>Animaux</item>
+        <item>Films</item>
+        <item>Sports</item>
+        <item>Technologie</item>
+    </string-array>
+
+    <string name="select_category">Sélectionnez un pack de mots</string>
+    <string name="language">langue</string>
+
+    <string name="start_game">Commencer !</string>
+    <string name="word_packs">Packs de mots</string>
+    <string name="rules">Règles</string>
+    <string name="how_to_play">
+        Dans Alias, les joueurs forment des équipes de deux personnes ou plus.
+        Le but du jeu est d’expliquer un mot à un autre joueur en utilisant des synonymes,
+        antonymes, descriptions ou indices. L’équipe qui atteint la fin en premier gagne !
+    </string>
+    <string name="start_game_match">COMMENCER LA PARTIE</string>
+    <string name="add_team_button">+AJOUTER ÉQUIPE</string>
+    <string name="add_player_button">+Ajouter un joueur</string>
+    <string name="team_translation">Équipe</string>
+    <string name="player_translation">Joueur</string>
+    <string name="enter_player_name">Entrez le nom du joueur</string>
+    <string name="enter_team_name">Entrez le nom de l’équipe</string>
+    <string name="round_time_setting">Temps par manche (secondes)</string>
+    <string name="points_threshold_setting">Seuil de points</string>
+    <string name="free_skips_setting">Sauts gratuits</string>
+    <string name="keep_last_word_setting">Garder le dernier mot</string>
+    <string name="custom_wordpack_setting">Pack personnalisé (si applicable)</string>
+    <string name="additional_settings_translation">⚙️ Paramètres supplémentaires</string>
+    <string name="time_up">Temps écoulé !</string>
+    <string name="explains_translation">explique !</string>
+    <string name="start_round">Commencer la manche</string>
+    <string name="button_correct">Correct</string>
+    <string name="button_skip">Passer</string>
+    <string name="final_score_translation">Score final : </string>
+    <string name="continue_button">Continuer</string>
+    <string name="scoreboard_translation">Tableau des scores</string>
+    <string name="button_next_round">Manche suivante</string>
+    <string name="points_translation">points</string>
+
+    <string-array name="pack_animals">
+        <item>Chien</item>
+        <item>Chat</item>
+        <item>Éléphant</item>
+        <item>Tigre</item>
+        <item>Cheval</item>
+    </string-array>
+
+    <string-array name="pack_movies">
+        <item>Titanic</item>
+        <item>Inception</item>
+        <item>Avatar</item>
+        <item>Joker</item>
+        <item>La Reine des Neiges</item>
+        <item>Avengers</item>
+    </string-array>
+
+    <string-array name="pack_sports">
+        <item>Football</item>
+        <item>Basket-ball</item>
+        <item>Tennis</item>
+        <item>Hockey</item>
+        <item>Course</item>
+        <item>Natation</item>
+    </string-array>
+
+    <string-array name="pack_technology">
+        <item>Ordinateur</item>
+        <item>Robot</item>
+        <item>IA</item>
+        <item>Smartphone</item>
+        <item>Code</item>
+        <item>Internet</item>
+    </string-array>
+
+    <string-array name="pack_default">
+        <item>Pomme</item>
+        <item>Lumière du soleil</item>
+        <item>Guitare</item>
+        <item>Montagne</item>
+        <item>Arbre</item>
+        <item>Livre</item>
+        <item>Chien</item>
+        <item>Chat</item>
+        <item>Éléphant</item>
+        <item>Tigre</item>
+        <item>Cheval</item>
+    </string-array>
+</resources>

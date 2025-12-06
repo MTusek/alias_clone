@@ -3,6 +3,7 @@ package com.example.aliasclone;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.AnimatedImageDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -66,28 +67,27 @@ public class GameRoundActivity extends AppCompatActivity {
 
         Settings settings = (Settings) getIntent().getSerializableExtra("SETTINGS");
 
+
         if (settings != null) {
             switch (settings.getWordPack()) {
                 case "Animals":
-                    words = new String[]{"Dog", "Cat", "Elephant", "Tiger", "Horse"};
+                    words = getResources().getStringArray(R.array.pack_animals);
                     break;
                 case "Movies":
-                    words = new String[]{"Titanic", "Inception", "Avatar", "Joker", "Frozen", "Avengers"};
+                    words = getResources().getStringArray(R.array.pack_movies);
                     break;
                 case "Sports":
-                    words = new String[]{"Football", "Basketball", "Tennis", "Hockey", "Running", "Swimming"};
+                    words = getResources().getStringArray(R.array.pack_sports);
                     break;
                 case "Technology":
-                    words = new String[]{"Computer", "Robot", "AI", "Smartphone", "Code", "Internet"};
+                    words = getResources().getStringArray(R.array.pack_technology);
                     break;
                 default:
-                    words = new String[]{"Apple", "Sunshine", "Guitar", "Mountain", "Tree", "Book", "Dog", "Cat", "Elephant", "Tiger", "Horse"};
+                    words = getResources().getStringArray(R.array.pack_default);
             }
         } else {
-            words = new String[]{"Apple", "Sunshine", "Guitar", "Mountain", "Tree", "Book", "Dog", "Cat", "Elephant", "Tiger", "Horse"};
+            words = getResources().getStringArray(R.array.pack_default);
         }
-
-
 
 
         keepLastWord = settings != null && settings.isLastWordKept();
@@ -137,7 +137,7 @@ public class GameRoundActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && timerAnimation != null)
                     timerAnimation.stop();
 
-                tvTimer.setText("Time's up!");
+                tvTimer.setText(R.string.time_up);
                 btnCorrect.setEnabled(false);
                 btnSkip.setEnabled(false);
 

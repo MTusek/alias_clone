@@ -51,6 +51,6 @@ public class TurnInfoActivity extends AppCompatActivity {
         String teamName =  team.getName();
         String playerName = players.get(currentPlayerIndex);
 
-        tvTurnInfo.setText(teamName + " – " + playerName + " explains!");
+        tvTurnInfo.setText(teamName + " – " + playerName + R.string.explains_translation);
     }
 }

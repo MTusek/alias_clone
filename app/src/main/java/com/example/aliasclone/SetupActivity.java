@@ -40,7 +40,7 @@ public class SetupActivity extends AppCompatActivity {
 
     private void addAddTeamButton() {
         Button btnAddTeam = new Button(this);
-        btnAddTeam.setText("+ Add team");
+        btnAddTeam.setText(getString(R.string.add_team_button));
         btnAddTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +60,7 @@ public class SetupActivity extends AppCompatActivity {
         }
 
         btnStartGame = new Button(this);
-        btnStartGame.setText("START THE MATCH");
+        btnStartGame.setText(getString(R.string.start_game_match));
         btnStartGame.setEnabled(false);
 
         btnStartGame.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +88,7 @@ public class SetupActivity extends AppCompatActivity {
         View teamView = inflater.inflate(R.layout.item_team, teamContainer, false);
 
         teamCount++;
-        String defaultTeamName = "Team " + teamCount;
+        String defaultTeamName = R.string.team_translation + " " + teamCount;
 
         EditText etTeamName = teamView.findViewById(R.id.etTeamName);
         LinearLayout playerContainer = teamView.findViewById(R.id.playerContainer);
@@ -185,8 +185,8 @@ public class SetupActivity extends AppCompatActivity {
         playerLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         EditText etPlayerName = new EditText(this);
-        etPlayerName.setHint("Player name");
-        etPlayerName.setText("Player"+playerNumber);
+        etPlayerName.setHint(R.string.enter_player_name);
+        etPlayerName.setText(R.string.player_translation + playerNumber);
         etPlayerName.setLayoutParams(new LinearLayout.LayoutParams(0,
                 LinearLayout.LayoutParams.WRAP_CONTENT, 1));
 
@@ -219,7 +219,7 @@ public class SetupActivity extends AppCompatActivity {
             LinearLayout playerContainer = teamView.findViewById(R.id.playerContainer);
 
             String teamName = etTeamName.getText().toString().trim();
-            if (teamName.isEmpty()) teamName = "Team " + (i + 1);
+            if (teamName.isEmpty()) teamName = getString(R.string.team_translation) + (i + 1);
 
             ArrayList<String> players = new ArrayList<>();
 

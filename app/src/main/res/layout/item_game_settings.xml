@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="⚙️ Additional settings"
+        android:text="@string/additional_settings_translation"
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_marginBottom="8dp" />
@@ -19,7 +19,7 @@
         android:id="@+id/etRoundTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Round Time (seconds)"
+        android:hint="@string/round_time_setting"
         android:inputType="number"
         android:minHeight="48dp" />
 
@@ -27,7 +27,7 @@
         android:id="@+id/etMaxScore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Points threshold"
+        android:hint="@string/points_threshold_setting"
         android:inputType="number"
         android:minHeight="48dp" />
 
@@ -35,19 +35,19 @@
         android:id="@+id/cbNoNegative"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Free skips" />
+        android:text="@string/free_skips_setting" />
 
     <CheckBox
         android:id="@+id/cbLastWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Keep last word" />
+        android:text="@string/keep_last_word_setting" />
 
     <CheckBox
         android:id="@+id/cbRandomTopic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Custom wordpack (if applicable)" />
+        android:text="@string/custom_wordpack_setting" />
 
     <Spinner
         android:id="@+id/spCategory"

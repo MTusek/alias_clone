@@ -32,7 +32,7 @@
 
     <TextView
         android:id="@+id/tvFinalScore"
-        android:text="Final score: 0"
+        android:text="@string/final_score_translation"
         android:textSize="18sp"
         android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
 
     <Button
         android:id="@+id/btnContinue"
-        android:text="Continue"
+        android:text="@string/continue_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>

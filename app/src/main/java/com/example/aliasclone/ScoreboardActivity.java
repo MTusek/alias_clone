@@ -70,7 +70,7 @@ public class ScoreboardActivity extends AppCompatActivity {
             int score = team.getScore();
 
             TextView tv = new TextView(this);
-            tv.setText(name + ": " + score + " pts");
+            tv.setText(name + ": " + score + R.string.points_translation);
             tv.setTextSize(18);
             scoreContainer.addView(tv);
         }

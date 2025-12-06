@@ -17,7 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Team name"
+            android:hint="@string/enter_team_name"
             android:minHeight="48dp" />
 
         <Button
@@ -38,6 +38,6 @@
         android:id="@+id/btnAddPlayer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+ Add player"
+        android:text="@string/add_player_button"
         android:layout_marginTop="8dp"/>
 </LinearLayout>

@@ -17,7 +17,7 @@
 
     <Button
         android:id="@+id/btnStartRound"
-        android:text="Start Round"
+        android:text="@string/start_round"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </LinearLayout>
